@@ -1,0 +1,85 @@
+<% if @reservations.count > 0 %>
+<table class="table table-striped table-hover table-bordered">
+	<thead>
+		<tr>
+
+			<th>Picture</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Seller</th>
+			<th>Date</th>
+			<th>Hour</th>
+			<th>Reservation state</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @reservations.each do |reservation| %>
+
+		<% state = '' %>
+		<% disable = false %>
+		<% checkout = false %>
+		<% formatedState = '' %>
+
+
+		<% if reservation.is_CallintoConfirm? %>
+		<% state = 'info' %>
+		<% end %>
+
+		<% if reservation.is_Approved? %>
+		<% state = 'success' %>
+		<% checkout = true %>
+		<% end %>
+
+		<% if reservation.is_Declined? %>
+		<% state = 'error' %>
+		<% disable = true %>
+		<% formatedState = 'Your dish request has been declined by the seller.' %>
+		<% end %>
+
+		<% if reservation.is_Canceled? %>
+		<% state = 'warning' %>
+		<% disable = true %>
+		<% formatedState = 'You canceled the dish request. That state can be changed by the seller only.' %>
+		<% end %>
+
+		<tr class="<%= state %>">
+			<td> <%= link_to dish_show_page_path(reservation.dishconcerned._id), :class => "thumbnail" do %>
+			<%= image_tag(reservation.dishconcerned.picture.url, :alt => reservation.dishconcerned.name) %>
+			<% end %> </td>
+			<td><%= link_to reservation.dishconcerned.name, dish_edit_page_path(reservation.dishconcerned._id) %></td>
+			<td><%= reservation.dishconcerned.price %></td>
+			<td><strong><%= link_to reservation.buyer.username, account_show_page_path(reservation.buyer.username), :target => "_blank" %> </strong></td>
+			<td><%= reservation.date.strftime("%Y-%m-%d") %></td>
+			<td><%= reservation.hour.strftime("%Y-%m-%d") %></td>
+			<td><strong><%= reservation.state.name %></strong></td>
+			<td> 
+				<% if disable %>
+			<p>
+				<%= formatedState %>
+			</p> <% else %>
+			
+			<% if checkout %>
+			
+			
+			<%= link_to "Cancel", reservation_cancel_path(:id => reservation._id), :class => "btn btn-mini btn-danger", :confirm => 'Cancel reservation?', :method => :post  %> 
+			
+			<%= link_to "Check out!", reservation_checkout_path(:id => reservation._id), :class => "btn btn-mini btn-success", :confirm => 'Checkout reservation?', :method => :post  %> 
+			 
+
+			<% else %>
+			<p>
+				<%= reservation.state.name %>!
+			</p> <%end%>
+			<%end%> </td>
+
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<% else %>
+<span class="label label-important pull-left">Important</span>
+<p class="pull-left">
+	You don't have any reservations at the moment.
+</p>
+<% end %>

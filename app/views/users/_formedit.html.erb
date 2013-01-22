@@ -1,0 +1,65 @@
+<%= form_for @user, :url => updateaccount_path, :html => { :class => "form-horizontal", :multipart => true} do |u| %>
+<% if @user.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	<ul>
+		<% @user.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<div class="control-group">
+	<%= label_tag :username, nil, :class =>  'control-label' %>
+	<div class="controls">
+		<%= u.text_field :username, :class => 'input-xxlarge', :disabled => 'disabled' %>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= label_tag :email, nil, :class =>  'control-label' %>
+	<div class="controls">
+		<%= u.text_field :email, :class => 'input-xxlarge', :disabled => 'disabled' %>
+	</div>
+</div>
+<div class="control-group">
+	<%= label_tag :firstname, nil, :class =>  'control-label' %>
+	<div class="controls">
+		<%= u.text_field :firstname, :class => 'input-xxlarge' %>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= label_tag :lastname, nil, :class =>  'control-label' %>
+	<div class="controls">
+		<%= u.text_field :lastname, :class => 'input-xxlarge' %>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= label_tag :aboutyou, nil, :class =>  'control-label' %>
+	<div class="controls">
+		<%= u.text_area :aboutyou, :rows => 3, :class => 'input-xxlarge' %>
+	</div>
+</div>
+<%= fields_for @user.location do |fn| %>
+<div class="control-group">
+	<%= label_tag :address, nil, :class =>  'control-label' %>
+	<div class="controls">
+		<%= fn.text_area :address, :rows => 3, :class => 'input-xxlarge' %>
+	</div>
+</div>
+<% end %>
+<div class="control-group">
+	<%= label_tag :picture, nil, :class =>  'control-label' %>
+	<div class="controls">
+		<%= u.file_field :picture, :class => 'input-xxlarge' %>
+	</div>
+</div>
+<%= u.submit :class => "btn btn-success pull-right" %>
+<br />
+<% end %>

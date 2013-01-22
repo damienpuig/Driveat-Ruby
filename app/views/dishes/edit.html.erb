@@ -1,0 +1,69 @@
+<div class="span12 driveatspan">
+	<div class="content">
+		<section id="loginForm">
+			<h2>edit a dish</h2>
+			<%= form_for @dish, :url => postdish_path do |f| %>
+			<% if @dish.errors.any? %>
+			<div id="error_explanation">
+				<h2><%= pluralize(@dish.errors.count, "error") %> prohibited this dish from being saved:</h2>
+
+				<ul>
+					<% @dish.errors.full_messages.each do |msg| %>
+					<li>
+						<%= msg %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+
+			<fieldset>
+				<legend>
+					Edit Dish form
+				</legend>
+				<ol>
+					<li>
+						<%= f.hidden_field :_id %>
+						<%= label_tag :name %>
+						<%= f.text_field :name %>
+					</li>
+					<li>
+						<%= label_tag :price %>
+						<div class="input-prepend input-append">
+							<span class="add-on">£</span>
+							<%= f.text_field :price, :class => "span2", :id => "appendedPrependedInput" %>
+							<span class="add-on">.00</span>
+						</div>
+					</li>
+					<li>
+						<%= label_tag :dishtype %>
+						<%=  collection_select(:dishtype, :id, Dishtype.all, :id, :name, :selected => f.object.dishtype._id )%>
+					</li>
+					<li>
+						<%= label_tag :availability %>
+						<%= f.text_field :availability %>
+					</li>
+					<li>
+						<%= label_tag :food %>
+						<%= f.text_area :food, :rows => 3 %>
+					</li>
+					<li>
+
+						<%= label_tag :description %>
+						<%= f.text_area :description, :rows => 3 %>
+					</li>
+					<li>
+						<%= label_tag :picture %>
+						<%= f.file_field :picture %>
+					</li>
+				</ol>
+
+				<div class="actions">
+					<%= f.submit :class => "btn btn-success", :value => "Add a dish" %>
+				</div>
+			</fieldset>
+			<% end %>
+		</section>
+		<%= link_to 'Back', root_path %>
+	</div>
+</div>

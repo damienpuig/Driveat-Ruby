@@ -1,0 +1,42 @@
+<% if @dishes.count > 0 %>
+<div class="row-fluid">
+	<ul class="thumbnails">
+		<% @dishes.each do |dish| %>
+
+		<li class="span4" style="height: 465px">
+			<div class="dish-list-item thumbnail"  style="height: 465px">
+				<%= image_tag(dish.picture.url, :alt => dish.name) %>
+				<div class="caption">
+					<h3><%= dish.name %></h3>
+					<% if dish.distance? %>
+					<h6><i class="icon-hand-right"></i> <%= dish.distance.round(2) %> miles away from your position</h6>
+					<% end %>
+					<p>
+						<%= dish.description %>
+					</p>
+					<p>
+						<%= dish.food %>
+					</p>
+					<p>
+						<%= link_to "Display", dish_show_page_path(dish._id), :class => "btn btn-primary" %>
+					</p>
+
+				</div>
+			</div>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% else %>
+<div class="span6 offset3">
+	<div class="hero-unit">
+		<h1>No dishes!</h1>
+		<p>
+			Unfortunately, There are no dishes in the database.
+		</p>
+		<p>
+			<%= link_to 'Add a dish', dish_add_page_path, :class => "btn btn-primary btn-large" %>
+		</p>
+	</div>
+</div>
+<% end %>

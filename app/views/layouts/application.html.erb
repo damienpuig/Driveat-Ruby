@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title><%= content_for?(:title) ? yield(:title) : "App_Name" %></title>
+		<meta name="description" content="<%= content_for?(:description) ? yield(:description) : "App_Name" %>">
+		<%= stylesheet_link_tag "application", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+		<%= yield(:head) %>
+	</head>
+	<body class="<%= controller_name %> <%= action_name %>">
+		<header class="navbar navbar-inverse navbar-fixed-top">
+			<nav class="navbar-inner">
+				<div class="container">
+					<%= render 'shared/navigation' %>
+				</div>
+			</nav>
+		</header>
+		<div id="main" role="main">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<%= render 'shared/messages' %>
+						<div class="row">
+							<%= yield %>
+						</div>
+					</div>
+				</div>
+				<div id="footer">
+
+					<div class="container">
+						<hr />
+
+						<p class=" span3 muted credit" style="margin-top: 40px;">
+							Driveat by <a href="http://google.co.uk">Damien PUIG</a>.
+						</p>
+						<div id="herofooter" class="span4 offset1"></div>
+
+						<p class="pull-right" style="margin-top: 40px;">
+							<a href="#">Back to top</a>
+						</p>
+						<div class="span12">
+							@ddisasmv
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--! end of .container -->
+		</div>
+		<!--! end of #main -->
+	</body>
+</html>

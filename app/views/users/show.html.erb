@@ -1,0 +1,39 @@
+<div class="span7 page-header">
+    <h1><%= @user.username %>
+    	<% if @user.firstname.present? && @user.lastname.present? %>
+        <small><%= @user.firstname %><%= @user.lastname %> is a Driveat cooker</small>
+        <% end %>
+    </h1>
+</div>
+
+<div class="span3 pull-right">
+
+    <div class="thumbnail">
+       <%= image_tag(@user.picture.url , :alt => @user.username) %>
+    </div>
+    	<% if @user.firstname.present? && @user.lastname.present? %>
+        <div class="content">
+            <address>
+                <strong><%= @user.firstname %><%= @user.lastname %></strong><br>
+               <%= @user.location.address %><br>
+                <a href="mailto:#"><%= @user.email %></a>
+            </address>
+        </div>
+        <% end %>
+</div>
+
+<div class="span7">
+    <div class="page-header">
+        <h1>What about me?</h1>
+    </div>
+    <p>
+        <%= @user.aboutyou %>
+    </p>
+</div>
+<div class="span12">
+    <div class="page-header">
+        <h1>Dishes I cooked</h1>
+    </div>
+  <%= render :partial => "shared/dishes", :model => @dishes %>
+</div>
+

@@ -1,0 +1,53 @@
+    <div class="span12">
+    <div class="container">
+        <div class="span9 page-header">
+        <h1><%= @dish.name %> <small><%= @dish.dishtype.name %> lovely cooked by <%= link_to @dish.nesteduser.username, account_show_page_path(@dish.nesteduser.username)%></small></h1>
+    </div>
+        <a data-toggle="modal" href="#BookModal" class="span2 btn btn-primary btn-large btn-success pull-right" style="margin-top:25px;">Book me for  <%= @dish.price %> £!</a>
+        <!-- Modal -->
+        <div id="BookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Before booking...</h3>
+            </div>
+            <%= form_tag postreservation_path do %>
+
+            <div class="modal-body">
+                <p>This offer is available until the <%= @dish.availability %>.</p>
+                Enter a date : 
+    				 <%= text_field_tag :date, params[:date], :class => "span2", :placeholder => "Enter a date", :type => "date", :min => DateTime.now.to_date, :max => @dish.availability.strftime("%Y-%m-%d") %>
+                <p>A Reservation is going to be send to <strong> <%= @dish.name %></strong>. </p> 
+               <p>Once your request is sent, <strong> <%= @dish.name %></strong> can either accept your booking, or
+                reject it.</p> 
+                 Enter a meeting hour :
+                  <%= text_field_tag :hour, params[:hour], :class => "span2", :type => "time", :value => "18:00:00" %>
+                  <%= hidden_field_tag "dishId", @dish._id %>
+                  
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <input type="submit" value="Book now!" class="span2 btn btn-success pull-right" />
+            </div>
+            <% end %>
+        </div>
+
+    </div>
+
+    <div id="hero span11">
+		<%= image_tag(@dish.picture.url , :alt => @dish.name) %>
+    </div>
+    <div class="container">
+        <div class="page-header">
+            <h1>Description</h1>
+        </div>
+        <div class="container">
+            <%= @dish.description %>
+        </div>
+        <div class="page-header">
+            <h1>What about food? <small>Description about the content of the dish. </small></h1>
+        </div>
+        <div class="container">
+            <%= @dish.food %>
+        </div>
+    </div>
+</div>
