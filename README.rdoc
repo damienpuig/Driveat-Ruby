@@ -1,3 +1,15 @@
 == Driveat-Ruby
 
-Collaborative consumption project about dishes, written in Ruby using Ruby-On-Rails and MongoDB Database.
+Driveat is a Collaborative Comsumption project allowing users to sell additional food, based on geolocation.
+
+The project used the following technology stack:
+- Ruby-On-Rails : http://rubyonrails.org/
+- MongoDB Database : http://www.mongodb.org/
+- MongoId ORM : http://mongoid.org/en/mongoid/index.html
+
+the project is fully workable, but has been developed only for Oxford Brookes University, and didn't have expectations such as:
+- Strong Database Design (Relational + Non-Relational)
+- Continuous Integration Plan (Tests and Deployment)
+
+
+The project has been developed in C# as well => https://github.com/damienpuig/Driveat-Csharp.
